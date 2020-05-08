@@ -1,44 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
-// 定义 NULL
-#ifndef NULL
-    #ifdef _cplusplus
-        #define NULL 0
-    #else
-        #define NULL ((void *)0)
-    #endif
-#endif
-
-// 定义 结点/元素 数据域类型 ElemType
-typedef int ElemType;
-
-// 定义结构体 struct Node
-struct Node
-{
-    ElemType data;
-    struct Node *next;
-};
-
-// 结构体 struct Node 重命名为 Node
-typedef struct Node Node;
-
-// 定义链表 LinkList 为 Node 指针 
-typedef Node *LinkList;
+#include "null.h"
+#include "node.h"
 
 
-/*
-头插法创建链表
-生成N个节点的单链表
-*/
-void CreateListHead(LinkList *L, int n){
+/**
+ * 头插法创建链表
+ * inputs：头节点指针的指针
+ *         链表长度
+ */
+void CreateListHead(LinkList L, int n){
     // 初始化随机数种子
     srand(time(0));
     
     // 创建头节点    
-    *L = (LinkList)malloc(sizeof(Node));  // L是Node指针的指针
-    (*L)->next = NULL;
+    // L = (LinkList)malloc(sizeof(Node));  // L是Node指针的指针
+    // L->next = NULL;
 
     // 定义工作指针，函数内部指针可以先不分配空间；
     LinkList p;
@@ -48,11 +26,15 @@ void CreateListHead(LinkList *L, int n){
         p->data = rand() % 100 + 1;  // 随机生成100以内的数字
 
         // 插入节点
-        p->next = (*L)->next;
-        (*L)->next = p;
+        p->next = L->next;
+        L->next = p;
     }
 }
 
+/**
+ * 删除链表
+ * inputs：头节点指针
+ */
 void DeleteList(LinkList head){
     LinkList p, q;
     p = head;
@@ -67,13 +49,22 @@ void DeleteList(LinkList head){
 
 int main(){
 
+    // 创建头节点指针的指针
     // LinkList *L = NULL; // 错误（Segmentation fault: 11），Mac中指针需先分配空间再传入函数使用，修改如下：
-    LinkList *L = (LinkList *)malloc(sizeof(LinkList));
+    //LinkList *L = (LinkList *)malloc(sizeof(LinkList));
+    LinkList L = (LinkList)malloc(sizeof(Node));
+    L->next = NULL;
     
     // 创建单链线性表
     CreateListHead(L, 5);
 
     // 删除线性表
-    DeleteList(*L);
+    DeleteList(L);
     return 1;
 }
+
+
+/**
+ *CreateList2，在函数外先创建头节点，然后让函数完成其余节点的创建；
+ #CreateList1，在函数内完成全部操作（包括头节点的创建）然后将头节点（地址）放到指定位置即可； 
+ */
