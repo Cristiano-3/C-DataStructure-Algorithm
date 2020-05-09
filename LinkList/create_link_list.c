@@ -1,16 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "null.h"
-#include "node.h"
-
+#include "global.h"
+#include "create_link_list.h"
 
 /**
  * 创建链表，头插法
  * inputs：头节点指针的指针
  *         链表长度
  */
-void CreateListHead(LinkList *L, int n){
+void CreateLinkListHead(LinkList *L, int n){
     // 初始化随机数种子
     srand(time(0));
     
@@ -36,7 +35,7 @@ void CreateListHead(LinkList *L, int n){
  * inputs：头节点指针的指针
  *         链表长度
  */
-void CreateListTail(LinkList *L, int n){
+void CreateLinkListTail(LinkList *L, int n){
     srand(time(0));
 
     // 创建头节点 
@@ -77,17 +76,17 @@ void DeleteList(LinkList head){
 }
 
 
-int main(){
+// int main(){
 
-    // 创建头节点指针的指针
-    // LinkList *L = NULL; // 错误（Segmentation fault: 11），Mac中指针需先分配空间再传入函数使用，修改如下：
-    LinkList *L = (LinkList *)malloc(sizeof(LinkList));
+//     // 创建头节点指针的指针
+//     // LinkList *L = NULL; // 错误（Segmentation fault: 11），Mac中指针需先分配空间再传入函数使用，修改如下：
+//     LinkList *L = (LinkList *)malloc(sizeof(LinkList));
     
-    // 创建单链线性表
-    //CreateListHead(L, 5);
-    CreateListTail(L, 5);
+//     // 创建单链线性表
+//     //CreateLinkListHead(L, 5);
+//     CreateLinkListTail(L, 5);
 
-    // 删除线性表
-    DeleteList(*L);
-    return 1;
-}
+//     // 删除线性表
+//     DeleteList(*L);
+//     return 1;
+// }
