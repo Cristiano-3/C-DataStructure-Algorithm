@@ -107,7 +107,7 @@ int main(){
     }
 
     // 链表插入
-    InsertElem(*L, i, 666);
+    s = InsertElem(*L, i, 666);
 
     // 链表删除
     ElemType *d = (ElemType *)malloc(sizeof(ElemType));
