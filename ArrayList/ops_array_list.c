@@ -5,7 +5,7 @@
 
 /**
  * 读取指定位置元素
- * inputs：线性表结构体，指定位置，元素返回指针
+ * inputs：线性表结构体（传值/copy），指定位置，元素返回指针
  */
 Status GetElem(ArrayList A, int i, ElemType *e){
     // 位置合法判断
@@ -19,7 +19,7 @@ Status GetElem(ArrayList A, int i, ElemType *e){
 
 /**
  * 元素插入指定位置
- * inputs：线性表结构体，插入位置，待插入元素
+ * inputs：线性表结构体指针（传址），插入位置，待插入元素
  */
 Status Insert(ArrayList *A, int i, ElemType e){
     // 是否已存满
@@ -46,6 +46,34 @@ Status Insert(ArrayList *A, int i, ElemType e){
     return OK;
 }
 
+/**
+ * 删除指定位置元素
+ * inputs：线性表结构体指针（传址），删除位置，返回元素指针
+ */
+Status Delete(ArrayList *A, int i, ElemType *e){
+    // 判断是否为空
+    if (A->length==0)
+        return ERROR;
+
+    // 判断位置是否合法
+    if (i<1 || i>A->length)
+        return ERROR;
+
+    // 取出删除的值
+    *e = A->data[i-1];
+
+    // 判断是否要挪动（删除表尾还是中间位置）
+    if (i < A->length){
+
+        int k;
+        for (k=i-1; k<A->length-1; k++) // i到倒数第二个【i，length）
+            A->data[k] = A->data[k+1];
+    }
+
+    A->length--;
+    return OK;
+}
+
 
 int main(){
     // 结构体变量创建，结构体成员变量初始化方法1
@@ -59,7 +87,14 @@ int main(){
     // 插入末尾
     Insert(&A, (A.length+1), 6);  // 结构体传址 Insert(ArrayList* A, ...)，函数才能修改其值
     Insert(&A, (A.length+1), 9);  // 传值 Insert(ArrayList A, ...) 则不可
+
+    // 插入中间
     Insert(&A, 5, 8);
+
+    // 删除中间
+    ElemType *d = (ElemType *)malloc(sizeof(ElemType));;
+    Delete(&A, 5, d);
+
 
     // 读取
     ElemType *e = (ElemType *)malloc(sizeof(ElemType));
