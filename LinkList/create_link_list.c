@@ -65,15 +65,15 @@ void CreateLinkListTail(LinkList *L, int n){
  */
 Status DeleteList(LinkList head){
     LinkList p, q;
-    p = head;
-    while (p->next)
+    p = head->next;
+    while (p)
     {
-        q = p;
-        p = p->next;
+        q = p->next;        
         printf("del %d\n", p->data);
-        free(q);
+        free(p);
+        p = q;
     }
-    
+
     head->next = NULL;
     return OK;
 }
