@@ -63,7 +63,7 @@ void CreateLinkListTail(LinkList *L, int n){
  * 删除链表
  * inputs：头节点指针
  */
-void DeleteList(LinkList head){
+Status DeleteList(LinkList head){
     LinkList p, q;
     p = head;
     while (p->next)
@@ -73,6 +73,9 @@ void DeleteList(LinkList head){
         printf("del %d\n", p->data);
         free(q);
     }
+    
+    head->next = NULL;
+    return OK;
 }
 
 
